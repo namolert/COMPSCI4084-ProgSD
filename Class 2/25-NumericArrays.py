@@ -7,3 +7,5 @@ for i in range(5):
 print(com_arr)
 
 print("something")
+
+print("OMG")
