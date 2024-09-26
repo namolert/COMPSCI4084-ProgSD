@@ -1,19 +1,10 @@
-from turtle import Turtle
-from random import random
-import keyboard
+import turtle
 
-t = Turtle()
-t.screen.title('Object-oriented turtle demo')
-t.screen.bgcolor("orange")
+screen = turtle.Screen()
 
-for i in range(100):
-    steps = int(random() * 100)
-    angle = int(random() * 360)
-    t.right(angle)
-    t.fd(steps)
+t = turtle.Turtle()
+t.speed(1)
+t.circle(100)
 
-    if keyboard.is_pressed("q"):
-        t.bye()
-        break
-
-t.screen.mainloop()
+t.hideturtle()
+screen.exitonclick()
