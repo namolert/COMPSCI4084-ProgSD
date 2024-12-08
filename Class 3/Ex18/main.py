@@ -15,7 +15,9 @@ def menu():
 
 def view():
     cursor.execute("SELECT * FROM PhoneBook1")
-    print(cursor.fetchall())
+    for x in cursor.fetchall():
+        print(x)
+    # print(cursor.fetchall())
 
 def add():
     new_firstname = str(input("Enter your firstname: "))

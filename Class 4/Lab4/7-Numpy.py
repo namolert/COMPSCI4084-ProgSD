@@ -31,3 +31,10 @@ A, B, C = np.vsplit(arr2, 3)
 print(A)
 print(B)
 print(C)
+
+
+x = np.arange(10)
+[A, B, C] = np.split(x, [2, 1],  axis=0)
+print(A)
+print(B)
+print(C)
