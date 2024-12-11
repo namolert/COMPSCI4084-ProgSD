@@ -2,14 +2,11 @@ package boxOffice;
 
 public class Main {
     public static void main(String[] args) {
-        Seat s = new Seat('P', 11, SeatType.STANDARD);
-        System.out.println(s.getRow());
+        Seat s1 = new Seat('R', 77, SeatType.STANDARD);
+        System.out.println(s1);
 
-        Venue v = new Venue("3\n" + //
-                "S D D S\n" + //
-                "D D D\n" + //
-                "S S S S S S");
-        v.printDetails();
-
+        String userInput = "3\nS D D S\nD D D\nS S S S S S";
+        Venue v = new Venue(userInput);
+        System.out.println(v.getSeat('A', 1));
     }
 }

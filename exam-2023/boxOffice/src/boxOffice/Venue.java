@@ -1,65 +1,68 @@
 package boxOffice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Venue {
-    private List<List<Seat>> seats;
-    private int numRows = 0;
+    private List<List<Seat>> seatList;
+    private int rowCount;
 
-    public Venue(String seatConfig) {
-        seats = new ArrayList<>();
-        String[] lines = seatConfig.split("\n");
-        this.numRows = Integer.parseInt(lines[0]);
-
-        for (int i = 1; i < lines.length; i++) {
-            char rowLetter = (char) ('A' + i - 1); // Calculate the row letter
-            String[] seatTypes = lines[i].split(" "); // Split the seat types by space
-            List<Seat> rowSeats = new ArrayList<>();
-
-            // Create a Seat object for each seat in the row
-            for (int j = 0; j < seatTypes.length; j++) {
-                SeatType seatType;
-                if (seatTypes[j].equals("S")) {
-                    seatType = SeatType.STANDARD;
-                } else if (seatTypes[j].equals("D")) {
-                    seatType = SeatType.DELUXE;
-                } else {
-                    throw new IllegalArgumentException("Invalid seat type: " + seatTypes[j]);
+    public Venue(String userInput) {
+        this.seatList = new ArrayList<>();
+        String[] rowArray = userInput.split("\n");
+        this.rowCount = Integer.parseInt(rowArray[0]);
+        String[] subRowArray = Arrays.copyOfRange(rowArray, 1, rowArray.length);
+        int n = 0;
+        for (String rowEach : subRowArray) {
+            String[] rowEachArray = rowEach.split(" ");
+            List<Seat> seatListEach = new ArrayList<Seat>();
+            char rowAlpha = (char) (n + 'A');
+            SeatType seatTypeEach = SeatType.STANDARD;
+            for (int i = 0; i < rowEachArray.length; i++) {
+                if (rowEachArray[i].equals("D")) {
+                    seatTypeEach = SeatType.DELUXE;
                 }
-                rowSeats.add(new Seat(rowLetter, j + 1, seatType));
+                Seat s = new Seat(rowAlpha, i + 1, seatTypeEach);
+                seatListEach.add(s);
             }
-            seats.add(rowSeats);
+            this.seatList.add(seatListEach);
+            n++;
         }
+    }
+
+    public int getRowCount() {
+        return this.rowCount;
+    }
+
+    public List<List<Seat>> getSeatList() {
+        return this.seatList;
     }
 
     public Seat getSeat(char row, int seatNum) {
-        int rowIndex = row - 'A';
-        if (rowIndex < 0 || rowIndex >= seats.size()) {
-            throw new IllegalArgumentException("Invalid row: " + row);
+        if (row < 'A' || row > 'Z') {
+            throw new IllegalArgumentException("Row out of range");
         }
-
-        List<Seat> rowSeats = seats.get(rowIndex);
-        if (seatNum < 1 || seatNum > rowSeats.size()) {
-            throw new IllegalArgumentException("Invalid seat number: " + seatNum);
+        if (seatNum <= 0) {
+            throw new IllegalArgumentException("Seat number out of range");
         }
-
-        return rowSeats.get(seatNum - 1);
+        return this.seatList.get(row - 'A').get(seatNum - 1);
     }
 
     public void printDetails() {
-        for (int i = 0; i < seats.size(); i++) {
-            char rowLetter = (char) ('A' + i);
-            List<Seat> rowSeats = seats.get(i);
-            System.out.print("Row " + rowLetter + ": ");
-            for (Seat seat : rowSeats) {
-                System.out.print(seat.getSeatType() + " ");
-            }
-            System.out.println();
-        }
+        System.out.println(this);
     }
 
-    public int getNumRows() {
-        return this.numRows;
+    @Override
+    public String toString() {
+        String result = "";
+        for (List<Seat> rowEachList : this.seatList) {
+            String re = "";
+            for (Seat s : rowEachList) {
+                re = re + s + ", ";
+            }
+            result = result + re + "\n";
+        }
+        return result;
     }
 }

@@ -28,7 +28,8 @@ public class Citizen {
         if (this.citizenGems < trade.getGems())
             return false;
         this.citizenGems -= trade.getGems();
-        this.inventory.put(trade.getGoods(), this.inventory.getOrDefault(trade.getGoods(), 0) + trade.getAmout());
+        this.inventory.put(trade.getGoods(),
+                this.inventory.getOrDefault(trade.getGoods(), 0) + trade.getAmout());
         return true;
     }
 }

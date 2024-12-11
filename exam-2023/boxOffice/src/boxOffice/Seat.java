@@ -4,47 +4,29 @@ public class Seat {
 
     // TODO complete this class according to the specification
     private char row;
-    private int seatNum;
+    private int seatNumber;
     private SeatType seatType;
     private boolean availability;
 
-    public Seat(char row, int seatNum, SeatType seatType) {
-        // TODO complete this method
+    public Seat(char row, int seatNumber, SeatType seatType) {
         if (row < 'A' || row > 'Z') {
-            throw new IllegalArgumentException("Row must be a capital letter from A to Z.");
+            throw new IllegalArgumentException("Row out of range");
         }
-        if (seatNum <= 0) {
-            throw new IllegalArgumentException("Seat number must be a positive integer.");
+        if (seatNumber <= 0) {
+            throw new IllegalArgumentException("Seat number out of range");
         }
-
         this.row = row;
-        this.seatNum = seatNum;
+        this.seatNumber = seatNumber;
         this.seatType = seatType;
-        this.availability = false;
-    }
-
-    public void setRow(char row) {
-        this.row = row;
-    }
-
-    public void setSeatNum(int seatNum) {
-        this.seatNum = seatNum;
-    }
-
-    public void setSeatType(SeatType seatType) {
-        this.seatType = seatType;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
+        this.availability = true;
     }
 
     public char getRow() {
         return this.row;
     }
 
-    public int getSeatNum() {
-        return this.seatNum;
+    public int getSeatNumber() {
+        return this.seatNumber;
     }
 
     public SeatType getSeatType() {
@@ -55,10 +37,13 @@ public class Seat {
         return this.availability;
     }
 
-    // Override toString() to display seat information
-    @Override
-    public String toString() {
-        return "Seat: " + row + seatNum + " (" + seatType + "), Available: " + availability;
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
     }
 
+    @Override
+    public String toString() {
+        return "Row: " + this.row + "\nSeat Number: " + this.seatNumber + "\nSeat Type: " + this.seatType
+                + "\nAvailability: " + this.availability;
+    }
 }
